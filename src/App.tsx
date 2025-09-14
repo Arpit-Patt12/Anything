@@ -16,6 +16,7 @@ import TeacherPortal from "./pages/TeacherPortal";
 import Contact from "./pages/Contact";
 import ProfileEdit from "./pages/ProfileEdit";
 import Demo from "./pages/Demo";
+import SignUp from "./pages/SignUp";
 import { StudentProvider } from "./contexts/StudentContext";
 import { initializeData } from "./data/sampleData";
 import { AnimatePresence } from "framer-motion";
@@ -45,6 +46,7 @@ function App() {
         <AnimatePresence mode="wait">
           <Routes>
             <Route path="/" element={<Landing />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route path="/demo" element={<Demo />} />
             <Route
               path="/teacher"

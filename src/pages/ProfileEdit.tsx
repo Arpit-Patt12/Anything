@@ -143,50 +143,6 @@ const ProfileEdit: React.FC = () => {
           >
             <GlassCard className="p-8">
               <form className="space-y-8">
-                {/* Avatar Section */}
-                <div className="text-center">
-                  <h3 className="text-xl font-bold text-white mb-6">Profile Picture</h3>
-                  <div className="relative inline-block">
-                    <img
-                      src={previewImage || formData.avatar}
-                      alt="Profile"
-                      className="w-32 h-32 rounded-full border-4 border-[#F8D991] shadow-lg"
-                    />
-                    {previewImage && (
-                      <button
-                        type="button"
-                        onClick={removePreviewImage}
-                        className="absolute -top-2 -right-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors focus:outline-none focus:ring-2 focus:ring-red-400"
-                      >
-                        <X className="h-4 w-4" />
-                      </button>
-                    )}
-                    <label className="absolute bottom-0 right-0 w-10 h-10 bg-[#E1664C] text-white rounded-full flex items-center justify-center cursor-pointer hover:bg-[#E1664C]/80 transition-colors focus:outline-none focus:ring-2 focus:ring-[#E1664C]">
-                      <Camera className="h-5 w-5" />
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageUpload}
-                        className="hidden"
-                      />
-                    </label>
-                  </div>
-                  {isUploading && (
-                    <p className="text-white/70 text-sm mt-2">Uploading...</p>
-                  )}
-                  
-                  {/* Apply Rewards Button */}
-                  {ownedItemsData.filter(item => item.type === 'avatar').length > 0 && (
-                    <button
-                      type="button"
-                      onClick={() => setShowRewardsModal(true)}
-                      className="mt-4 px-4 py-2 bg-[#E1664C] text-white rounded-lg hover:bg-[#E1664C]/80 transition-colors focus:outline-none focus:ring-2 focus:ring-[#E1664C]"
-                    >
-                      Apply Owned Avatars
-                    </button>
-                  )}
-                </div>
-
                 {/* Personal Information */}
                 <div>
                   <h3 className="text-xl font-bold text-white mb-6 flex items-center space-x-2">

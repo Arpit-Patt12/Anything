@@ -99,6 +99,18 @@ const LoginForm: React.FC<LoginFormProps> = ({ type, onLogin, onClose }) => {
             </button>
           </form>
 
+          <div className="mt-4 text-center">
+            <p className="text-white/70 text-sm">
+              Don't have an account?{' '}
+              <a
+                href="/signup"
+                className="text-[#E1664C] hover:text-[#E1664C]/80 transition-colors focus:outline-none focus:ring-2 focus:ring-[#E1664C] rounded px-1"
+              >
+                Sign Up
+              </a>
+            </p>
+          </div>
+
           <div className="mt-6 text-center">
             <button
               onClick={onClose}

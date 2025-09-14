@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Users, BookOpen, BarChart3, Plus, Search, Filter, Edit, Trash2, Eye } from 'lucide-react';
 import GlassCard from '../components/GlassCard';
+import StudentDetailModal from '../components/StudentDetailModal';
+import CreateLessonModal from '../components/CreateLessonModal';
 
 interface Student {
   id: string;
@@ -23,9 +25,24 @@ interface Lesson {
   status: 'draft' | 'published';
 }
 
+interface LessonFormData {
+  title: string;
+  subject: string;
+  description: string;
+  duration: number;
+  objectives: string[];
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
+  category: string;
+  prerequisites: string;
+  materials: string[];
+}
+
 const TeacherPortal: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'overview' | 'students' | 'lessons' | 'analytics'>('overview');
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
+  const [showStudentModal, setShowStudentModal] = useState(false);
+  const [showCreateLessonModal, setShowCreateLessonModal] = useState(false);
 
   // Mock data
   const students: Student[] = [
@@ -55,6 +72,30 @@ const TeacherPortal: React.FC = () => {
       completedChallenges: 6,
       streak: 8,
       avatar: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop'
+    },
+    {
+      id: '4',
+      name: 'Sneha Reddy',
+      grade: '10th',
+      ecoPoints: 1150,
+      completedChallenges: 9,
+      streak: 10,
+      avatar: 'https://images.pexels.com/photos/1239288/pexels-photo-1239288.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
+      school: 'Earth Sciences School',
+      state: 'Telangana',
+      joinDate: '2024-01-10T00:00:00Z'
+    },
+    {
+      id: '5',
+      name: 'Vikram Singh',
+      grade: '9th',
+      ecoPoints: 890,
+      completedChallenges: 5,
+      streak: 6,
+      avatar: 'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
+      school: 'Green Future Academy',
+      state: 'Rajasthan',
+      joinDate: '2024-01-15T00:00:00Z'
     }
   ];
 
@@ -98,6 +139,24 @@ const TeacherPortal: React.FC = () => {
   const filteredStudents = students.filter(student =>
     student.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleViewStudentDetails = (student: Student) => {
+    // Add missing properties for the modal
+    const studentWithDetails = {
+      ...student,
+      school: student.school || 'Green Valley School',
+      state: student.state || 'Maharashtra',
+      joinDate: student.joinDate || '2024-01-01T00:00:00Z'
+    };
+    setSelectedStudent(studentWithDetails);
+    setShowStudentModal(true);
+  };
+
+  const handleCreateLesson = (lessonData: LessonFormData) => {
+    console.log('Creating lesson:', lessonData);
+    // Here you would typically send the data to your backend
+    // For now, we'll just log it and close the modal
+  };
 
   const renderOverview = () => (
     <div className="space-y-6">
@@ -216,7 +275,10 @@ const TeacherPortal: React.FC = () => {
                 </div>
               </div>
               
-              <button className="w-full mt-4 bg-[#E1664C] text-white py-2 rounded-lg hover:bg-[#E1664C]/80 transition-colors focus:outline-none focus:ring-2 focus:ring-[#E1664C]">
+              <button 
+                onClick={() => handleViewStudentDetails(student)}
+                className="w-full mt-4 bg-[#E1664C] text-white py-2 rounded-lg hover:bg-[#E1664C]/80 transition-colors focus:outline-none focus:ring-2 focus:ring-[#E1664C]"
+              >
                 View Details
               </button>
             </GlassCard>
@@ -231,7 +293,10 @@ const TeacherPortal: React.FC = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-white">Lesson Management</h2>
-        <button className="flex items-center space-x-2 bg-gradient-to-r from-[#F8D991] to-[#F6B080] text-[#091D23] px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-[#E1664C]">
+        <button 
+          onClick={() => setShowCreateLessonModal(true)}
+          className="flex items-center space-x-2 bg-gradient-to-r from-[#F8D991] to-[#F6B080] text-[#091D23] px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-[#E1664C]"
+        >
           <Plus className="h-4 w-4" />
           <span>Create Lesson</span>
         </button>
@@ -397,6 +462,25 @@ const TeacherPortal: React.FC = () => {
         {activeTab === 'lessons' && renderLessons()}
         {activeTab === 'analytics' && renderAnalytics()}
       </motion.div>
+
+      {/* Student Detail Modal */}
+      {selectedStudent && (
+        <StudentDetailModal
+          student={selectedStudent}
+          isOpen={showStudentModal}
+          onClose={() => {
+            setShowStudentModal(false);
+            setSelectedStudent(null);
+          }}
+        />
+      )}
+
+      {/* Create Lesson Modal */}
+      <CreateLessonModal
+        isOpen={showCreateLessonModal}
+        onClose={() => setShowCreateLessonModal(false)}
+        onSave={handleCreateLesson}
+      />
     </div>
   );
 };

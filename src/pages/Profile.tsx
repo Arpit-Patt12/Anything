@@ -93,17 +93,8 @@ const Profile: React.FC = () => {
         
         {/* Profile Content */}
         <div className="relative px-6 pb-6">
-          {/* Avatar */}
-          <div className="absolute -top-16 left-6">
-            <img
-              src={currentStudent.avatar}
-              alt={currentStudent.name}
-              className="w-32 h-32 rounded-full border-4 border-white shadow-lg"
-            />
-          </div>
-
           {/* Edit Button */}
-          <div className="flex justify-end pt-4">
+          <div className="flex justify-end pt-4 mb-8">
             <Link
               to="/profile/edit"
               className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -114,7 +105,7 @@ const Profile: React.FC = () => {
           </div>
 
           {/* Profile Info */}
-          <div className="mt-16 space-y-6">
+          <div className="space-y-6">
             <div>
               <h2 className="text-3xl font-bold text-gray-800">{currentStudent.name}</h2>
               <div className="flex items-center space-x-4 mt-2 text-gray-600">

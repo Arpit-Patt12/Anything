@@ -205,6 +205,23 @@ const Landing: React.FC = () => {
               </GlassCard>
             </motion.div>
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="text-center mt-8"
+          >
+            <p className="text-white/70 mb-4">Don't have an account?</p>
+            <Link
+              to="/signup"
+              {...buttonProps()}
+              className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-3 rounded-full font-semibold hover:bg-white/20 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#E1664C] focus:ring-offset-2 focus:ring-offset-transparent"
+            >
+              <span>Create New Account</span>
+            </Link>
+          </motion.div>
         </div>
       </section>
 
